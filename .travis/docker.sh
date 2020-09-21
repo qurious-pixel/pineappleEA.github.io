@@ -5,9 +5,9 @@ BRANCH=$TRAVIS_BRANCH
 curl -s https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/master/index.html > sourcefile.txt
 latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | cut -d '=' -f 2 | cut -d '>' -f 1 | head -n 1)
 export title="Yuzu $(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
-echo $title > $TRAVIS_BUILD_DIR/title
-ls $TRAVIS_BUILD_DIR/title
-cat $TRAVIS_BUILD_DIR/title
+echo $title > $TRAVIS_BUILD_DIR/title.txt
+ls $TRAVIS_BUILD_DIR/
+cat $TRAVIS_BUILD_DIR/title.txt
 
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
