@@ -53,7 +53,7 @@ mv /tmp/update/* $HOME/squashfs-root/usr/lib/
 mkdir $HOME/artifacts/
 mkdir -p /yuzu/artifacts/
 mv $TRAVIS_BUILD_DIR/title.txt $HOME/artifacts/
-mv yuzu-x86_64.AppImage* $HOME/artifacts
+mv yuzu-x86_64.AppImage* /yuzu/artifacts
 cp -R $HOME/artifacts/ /yuzu/
 cp "$BUILDBIN"/yuzu /yuzu/artifacts
 chmod -R 777 /yuzu/artifacts
