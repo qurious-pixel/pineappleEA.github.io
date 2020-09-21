@@ -24,6 +24,8 @@ matrix:
       - cd artifacts/
       - version=$(echo $title | cut -d " " -f 2) 
       - cp yuzu-x86_64.AppImage Yuzu-EA-$version.AppImage
+      - echo "echo $version"
+      - ls ./
       - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       - chmod a+x upload.sh
       - bash upload.sh yuzu* 
