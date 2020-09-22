@@ -27,7 +27,8 @@ matrix:
       - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       - chmod a+x upload.sh
       - bash upload.sh yuzu* 
-      - UPLOADTOOL_SUFFIX="EA $version" bash upload.sh Yuzu-EA*
+      - ls -al .
+      - UPLOADTOOL_SUFFIX="EA-$version" bash upload.sh Yuzu-EA*
       branches:
   except:
     - /^(?i:continuous.*)$/
