@@ -52,11 +52,12 @@ mv /tmp/update/* $HOME/squashfs-root/usr/lib/
 
 mkdir $HOME/artifacts/
 mkdir -p /yuzu/artifacts/
-mv $TRAVIS_BUILD_DIR/title.txt $HOME/artifacts/
 mv yuzu-x86_64.AppImage* /yuzu/artifacts
+version=$(echo $title | cut -d " " -f 2) 
+cp /yuzu/artifacts/yuzu-x86_64.AppImage /yuzu/artifacts/Yuzu-EA-$version.AppImage
 cp -R $HOME/artifacts/ /yuzu/
 cp "$BUILDBIN"/yuzu /yuzu/artifacts
 chmod -R 777 /yuzu/artifacts
 cd /yuzu/artifacts
 ls -al /yuzu/artifacts/
-curl --upload-file yuzu-x86_64.AppImage https://transfersh.com/yuzu-x86_64.AppImage
+#curl --upload-file yuzu-x86_64.AppImage https://transfersh.com/yuzu-x86_64.AppImage
