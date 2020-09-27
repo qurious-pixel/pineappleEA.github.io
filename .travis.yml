@@ -31,7 +31,9 @@ matrix:
         - go-2
         - master
         except:
-        - /^(?i:continuous.*)$/
+          tags:
+          - /^(?i:continuous.*)$/
+          - /^(?i:EA)-.*$/
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
