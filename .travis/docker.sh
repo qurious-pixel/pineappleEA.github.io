@@ -7,6 +7,9 @@ latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | cut -d '=' -f 2 | cu
 export title="Yuzu $(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
 echo $title > $TRAVIS_BUILD_DIR/title.txt
 
+apt-get update
+apt-get install -y aria2
+
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
 export PATH=$QT_BASE_DIR/bin:$PATH
@@ -16,7 +19,7 @@ export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 ln -s /home/yuzu/.conan /root
 mkdir -p /tmp/source/
 cd /tmp/source
-curl -sLO $(curl $latest | grep -o 'https://cdn-.*.7z' | head -n 1)
+aria2c $(curl $latest | grep -o 'https://cdn-.*.7z' | head -n 1)
 7z x Yuzu* yuzu-windows-msvc-early-access/yuzu-windows-msvc-source-*
 cd yuzu-windows-msvc-early-access
 msvc=$(grep yuzu-windows-msvc-source | cut -d '-' -f 5 | cut -d '.' -f 1 )
