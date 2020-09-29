@@ -50,6 +50,6 @@ deploy:
   file_glob: true
   file: "artifacts/*"
   skip_cleanup: true
-  #on:
+  on:
   #  tags: true
-  if: $TRAVIS_COMMIT != $(wget -qO- https://www.github.com/qurious-pixel/pineappleEA.github.io/releases/tag/continuous | grep pineappleEA/pineappleEA.github.io/commit/ | cut -d '"' -f 2 | cut -d '/' -f 5 | awk '!x[$0]++')
+    condition: $TRAVIS_COMMIT != $(wget -qO- https://www.github.com/qurious-pixel/pineappleEA.github.io/releases/tag/continuous | grep pineappleEA/pineappleEA.github.io/commit/ | cut -d '"' -f 2 | cut -d '/' -f 5 | awk '!x[$0]++')
