@@ -37,10 +37,10 @@ matrix:
       branches:
         #only:
         #- go-3
-        #except:
+        except:
         #  tags:
-        #  - /^(?i:continuous.*)$/
-        #  - /^(?i:EA)-.*$/
+          - /^(?i:continuous.*)$/
+          - /^(?i:EA)-.*$/
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
