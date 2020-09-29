@@ -1,10 +1,11 @@
 #!/bin/bash -ex
 
-BRANCH=master
+BRANCH=$TRAVIS_BRANCH
 
 curl -s https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/master/index.html > sourcefile.txt
 latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | cut -d '=' -f 2 | cut -d '>' -f 1 | head -n 1)
-title=$(echo $latest | cut -d '/' -f 5 | head -n 1 | cut -d '_' -f 1)
+export title="Yuzu $(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
+echo $title > $TRAVIS_BUILD_DIR/title.txt
 
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
@@ -15,7 +16,7 @@ export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 ln -s /home/yuzu/.conan /root
 mkdir -p /tmp/source/
 cd /tmp/source
-curl -sLO $(curl $latest | grep -o 'https://cdn-.*.7z' | head -n 1)
+aria2c $(curl $latest | grep -o 'https://cdn-.*.7z' | head -n 1)
 7z x Yuzu* yuzu-windows-msvc-early-access/yuzu-windows-msvc-source-*
 cd yuzu-windows-msvc-early-access
 msvc=$(grep yuzu-windows-msvc-source | cut -d '-' -f 5 | cut -d '.' -f 1 )
@@ -41,6 +42,6 @@ ninja
 #cat yuzu/build/CMakeFiles/CMakeError.log | curl -F 'f:1=<-' ix.io
 
 cd /tmp
-curl -sLO "https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/$BRANCH/.travis/appimage.sh"
+curl -sLO "https://raw.githubusercontent.com/qurious-pixel/pineappleEA.github.io/$BRANCH/.travis/appimage.sh"
 chmod a+x appimage.sh
 ./appimage.sh

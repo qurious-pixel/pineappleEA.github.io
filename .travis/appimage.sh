@@ -3,7 +3,7 @@
 BUILDBIN=/tmp/source/yuzu/build/bin
 BINFILE=yuzu-x86_64.AppImage
 LOG_FILE=$HOME/curl.log
-BRANCH=master
+BRANCH=$TRAVIS_BRANCH
 
 # QT 5.14.2
 # source /opt/qt514/bin/qt514-env.sh
@@ -15,7 +15,7 @@ export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 
 cd /tmp
 	curl -sLO "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-	curl -sLO "https://github.com/pineappleEA/pineappleEA.github.io/raw/$BRANCH/.travis/update.tar.gz"
+	curl -sLO "https://github.com/$TRAVIS_REPO_SLUG/raw/$BRANCH/.travis/update.tar.gz"
 	tar -xzf update.tar.gz
 	chmod a+x linuxdeployqt*.AppImage
 ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
@@ -35,7 +35,8 @@ curl -sL "https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/$B
 chmod a+x ./squashfs-root/runtime
 chmod a+x ./squashfs-root/AppRun
 chmod a+x ./squashfs-root/update.sh
-cp /tmp/update/libssl.so.47 /tmp/update/libcrypto.so.45 /usr/lib/x86_64-linux-gnu/
+
+#cp /tmp/libssl.so.47 /tmp/libcrypto.so.45 /usr/lib/x86_64-linux-gnu/
 
 echo $TRAVIS_COMMIT > $HOME/squashfs-root/version.txt
 
@@ -51,11 +52,14 @@ mv /tmp/update/* $HOME/squashfs-root/usr/lib/
 /tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root -u "gh-releases-zsync|pineappleEA|pineappleEA.github.io|continuous|yuzu-x86_64.AppImage.zsync"
 
 mkdir $HOME/artifacts/
-mkdir -p /yuzu/artifacts/
-mv yuzu-x86_64.AppImage* $HOME/artifacts
+mkdir -p /yuzu/artifacts/version
+mv yuzu-x86_64.AppImage* /yuzu/artifacts
+version=$(echo $title | cut -d " " -f 2) 
+cp /yuzu/artifacts/yuzu-x86_64.AppImage /yuzu/artifacts/version/Yuzu-EA-$version.AppImage
 cp -R $HOME/artifacts/ /yuzu/
 cp "$BUILDBIN"/yuzu /yuzu/artifacts
 chmod -R 777 /yuzu/artifacts
 cd /yuzu/artifacts
 ls -al /yuzu/artifacts/
-curl --upload-file yuzu-x86_64.AppImage https://transfersh.com/yuzu-x86_64.AppImage
+ls -al /yuzu/artifacts/version
+#curl --upload-file yuzu-x86_64.AppImage https://transfersh.com/yuzu-x86_64.AppImage
