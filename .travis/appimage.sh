@@ -35,6 +35,7 @@ curl -sL "https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/$B
 chmod a+x ./squashfs-root/runtime
 chmod a+x ./squashfs-root/AppRun
 chmod a+x ./squashfs-root/update.sh
+
 #cp /tmp/libssl.so.47 /tmp/libcrypto.so.45 /usr/lib/x86_64-linux-gnu/
 
 echo $TRAVIS_COMMIT > $HOME/squashfs-root/version.txt
@@ -48,7 +49,7 @@ unset QTDIR
 export PATH=$(readlink -f /tmp/squashfs-root/usr/bin/):$PATH
 mv /tmp/update/AppImageUpdate $HOME/squashfs-root/usr/bin/
 mv /tmp/update/* $HOME/squashfs-root/usr/lib/
-/tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root -u "gh-releases-zsync|qurious-pixel|pineappleEA.github.io|continuous|yuzu-x86_64.AppImage.zsync"
+/tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root -u "gh-releases-zsync|pineappleEA|pineappleEA.github.io|continuous|yuzu-x86_64.AppImage.zsync"
 
 mkdir $HOME/artifacts/
 mkdir -p /yuzu/artifacts/version
