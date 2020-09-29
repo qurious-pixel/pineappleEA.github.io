@@ -23,7 +23,7 @@ matrix:
        - cd artifacts/
        - wget -c https://github.com/qurious-pixel/pineappleEA.github.io/releases/download/continuous-EA-985/yuzu-x86_64.AppImage.zsync
        - mv yuzu-x86_64.AppImage.zsync yuzu-x86_64.AppImage
-       - cp yuzu-x86_64.AppImage version/Yuzu-EA-1002.AppImage
+       - cp yuzu-x86_64.AppImage version/Yuzu-EA-1003.AppImage
        - ls -al .
        - echo $PWD
        - cd ..
@@ -48,5 +48,6 @@ deploy:
   file_glob: true
   file: "artifacts/*"
   skip_cleanup: true
+  draft: true
   on:
     tags: true
