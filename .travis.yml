@@ -23,6 +23,7 @@ matrix:
        - cd artifacts/
        - wget -c https://github.com/qurious-pixel/pineappleEA.github.io/releases/download/continuous/yuzu-x86_64.AppImage
        - cp yuzu-x86_64.AppImage Yuzu-EA-1002.AppImage
+       - ls -al .
       after_success:
       - ls -al artifacts/
       - wget -c https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
