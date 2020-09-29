@@ -35,8 +35,8 @@ matrix:
       - ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" continuous artifacts/
       - ghr_v0.13.0_linux_amd64/ghr -recreate -n "Continuous build (EA-$version)" -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" EA-$version artifacts/version/
       branches:
-        only:
-        - go-3
+        #only:
+        #- go-3
         except:
           tags:
           - /^(?i:continuous.*)$/
