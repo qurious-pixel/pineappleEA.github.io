@@ -35,12 +35,12 @@ matrix:
       - ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" continuous artifacts/
       - ghr_v0.13.0_linux_amd64/ghr -recreate -n "Continuous build (EA-$version)" -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" EA-$version artifacts/version/
       branches:
-        only:
-        - go-3
+        #only:
+        #- go-3
         except:
         #  tags:
-          - continuous
-          - /^(?i:EA.*)$/
+          - /^(?i:continuous.*)$/
+          - /^(?i:EA-.*)$/
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
@@ -48,6 +48,5 @@ deploy:
   file_glob: true
   file: "artifacts/*"
   skip_cleanup: true
-  draft: true
-  on:
-    tags: true
+  #on:
+  #  tags: true
