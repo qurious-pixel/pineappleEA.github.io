@@ -51,4 +51,4 @@ deploy:
   file: "artifacts/*"
   skip_cleanup: true
   on:
-    branches: go-3
+    branch: go-3
