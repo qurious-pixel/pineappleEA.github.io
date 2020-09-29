@@ -31,12 +31,13 @@ matrix:
        - echo $PWD
        - cd ..
       after_success:
-      - ls -al artifacts/
-      - wget -c https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
-      - tar xfv ghr_v0.13.0_linux_amd64.tar.gz      
-      - version=$(ls artifacts/version |grep Yuzu-EA | cut -d "-" -f 3 | cut -d "." -f 1) 
-      - ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" continuous artifacts/
-      - ghr_v0.13.0_linux_amd64/ghr -n "Continuous build (EA-$version)" -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" EA-$version artifacts/version/
+      #- ls -al artifacts/
+      #- wget -c https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
+      #- tar xfv ghr_v0.13.0_linux_amd64.tar.gz      
+      #- version=$(ls artifacts/version |grep Yuzu-EA | cut -d "-" -f 3 | cut -d "." -f 1) 
+      #- ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" continuous artifacts/
+      #- ghr_v0.13.0_linux_amd64/ghr -n "Continuous build (EA-$version)" -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" EA-$version artifacts/version/
+      - echo "Success!"
       branches:
         only:
         - go-3
@@ -44,15 +45,13 @@ matrix:
         #  tags:
           #- /^(?i:continuous.*)$/
           #- /^(?i:EA-.*)$/
-before_deploy:
-  - RELCOMMIT=`wget -qO- https://www.github.com/qurious-pixel/pineappleEA.github.io/releases/tag/continuous | grep pineappleEA/pineappleEA.github.io/commit/ | cut -d '"' -f 2 | cut -d '/' -f 5 | awk '!x[$0]++'` 
 deploy:
-  provider: releases
+  provider: script
+  script: bash .travis/deploy.sh
   api_key: $GITHUB_TOKEN
 #  secure: 
   file_glob: true
   file: "artifacts/*"
   skip_cleanup: true
-  on:
+  #on:
   #  tags: true
-    condition: $TRAVIS_COMMIT != $(wget -qO- https://www.github.com/qurious-pixel/pineappleEA.github.io/releases/tag/continuous | grep pineappleEA/pineappleEA.github.io/commit/ | cut -d '"' -f 2 | cut -d '/' -f 5 | awk '!x[$0]++')
