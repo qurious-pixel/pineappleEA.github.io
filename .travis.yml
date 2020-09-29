@@ -15,33 +15,12 @@ matrix:
           packages:
             - p7zip-full
       install: 
-       #- docker pull quriouspixel/yuzu:latest
+       - docker pull quriouspixel/yuzu:latest
       script: 
-       #- mkdir -p "$HOME/.ccache"
-       #- travis_retry docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .travis/travis-ci.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache --name yuzu_appimage quriouspixel/yuzu:latest /bin/bash /yuzu/.travis/docker.sh
-       - mkdir -p artifacts/version/
-       - cd artifacts/
-       - wget -c https://github.com/qurious-pixel/pineappleEA.github.io/releases/download/continuous-EA-985/yuzu-x86_64.AppImage.zsync
-       - mv yuzu-x86_64.AppImage.zsync yuzu-x86_64.AppImage
-       - cp yuzu-x86_64.AppImage version/Yuzu-EA-1005.AppImage
-       - ls -al .
-       - echo $PWD
-       - cd ..
+       - mkdir -p "$HOME/.ccache"
+       - travis_retry docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .travis/travis-ci.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache --name yuzu_appimage quriouspixel/yuzu:latest /bin/bash /yuzu/.travis/docker.sh
       after_success:
-      #- ls -al artifacts/
-      #- wget -c https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
-      #- tar xfv ghr_v0.13.0_linux_amd64.tar.gz      
-      #- version=$(ls artifacts/version |grep Yuzu-EA | cut -d "-" -f 3 | cut -d "." -f 1) 
-      #- ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" continuous artifacts/
-      #- ghr_v0.13.0_linux_amd64/ghr -n "Continuous build (EA-$version)" -b "Travis CI build log ${TRAVIS_BUILD_WEB_URL}" EA-$version artifacts/version/
       - echo "Success!"
-      #branches:
-        #only:
-        #- go-3
-        #except:
-        #  tags:
-          #- /^(?i:continuous.*)$/
-          #- /^(?i:EA-.*)$/
 deploy:
   provider: script
   script: bash .travis/deploy.sh
