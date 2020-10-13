@@ -17,16 +17,16 @@ matrix:
       install: 
        #- docker pull quriouspixel/yuzu:latest
       script: 
-       #- mkdir -p "$HOME/.ccache"
-       #- travis_retry docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .travis/travis-ci.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache --name yuzu_appimage quriouspixel/yuzu:latest /bin/bash /yuzu/.travis/docker.sh
-       - mkdir -p artifacts/version/
-       - cd artifacts/
-       - wget -c https://github.com/qurious-pixel/pineappleEA.github.io/releases/download/continuous-EA-985/yuzu-x86_64.AppImage.zsync
-       - mv yuzu-x86_64.AppImage.zsync yuzu-x86_64.AppImage
-       - cp yuzu-x86_64.AppImage version/Yuzu-EA-1004.AppImage
-       - ls -al .
-       - echo $PWD
-       - cd ..
+       - mkdir -p "$HOME/.ccache"
+       - travis_retry docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .travis/travis-ci.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache --name yuzu_appimage quriouspixel/yuzu:latest /bin/bash /yuzu/.travis/docker.sh
+       #- mkdir -p artifacts/version/
+       #- cd artifacts/
+       #- wget -c https://github.com/qurious-pixel/pineappleEA.github.io/releases/download/continuous-EA-985/yuzu-x86_64.AppImage.zsync
+       #- mv yuzu-x86_64.AppImage.zsync yuzu-x86_64.AppImage
+       #- cp yuzu-x86_64.AppImage version/Yuzu-EA-1004.AppImage
+       #- ls -al .
+       #- echo $PWD
+       #- cd ..
       after_success:
       #- ls -al artifacts/
       #- wget -c https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
