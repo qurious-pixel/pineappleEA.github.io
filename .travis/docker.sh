@@ -2,10 +2,10 @@
 
 BRANCH=$TRAVIS_BRANCH
 
-curl -s https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/master/index.html > sourcefile.txt
-latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | cut -d '=' -f 2 | cut -d '>' -f 1 | head -n 1)
-export title="$(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
-echo $title > $TRAVIS_BUILD_DIR/title.txt
+curl -s https://raw.githubusercontent.com/edisionnano/peachea.github.io/master/pinEApple.html > sourcefile.txt
+latest=$(cat sourcefile.txt | grep drive.google.com | head -n 1)
+id=$(echo $latest | cut -d '/' -f 6)
+title=$(echo $latest | cut -d '>' -f 2 | cut -d '<' -f 1 |grep -o '[0-9]*')
 
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
