@@ -30,6 +30,8 @@ mkdir -p squashfs-root/usr/share/applications && cp ./squashfs-root/yuzu.desktop
 mkdir -p squashfs-root/usr/share/icons && cp ./squashfs-root/yuzu.svg ./squashfs-root/usr/share/icons
 mkdir -p squashfs-root/usr/share/icons/hicolor/scalable/apps && cp ./squashfs-root/yuzu.svg ./squashfs-root/usr/share/icons/hicolor/scalable/apps
 mkdir -p squashfs-root/usr/share/pixmaps && cp ./squashfs-root/yuzu.svg ./squashfs-root/usr/share/pixmaps
+mkdir -p squashfs-root/usr/share/src
+cp /tmp/source/yuzu-windows-msvc-early-access/yuzu-windows-msvc-source-*.tar.xz ./squashfs-root/usr/share/src
 curl -sL "https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/$BRANCH/.travis/update.sh" -o $HOME/squashfs-root/update.sh
 curl -sL "https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/$BRANCH/.travis/AppRun" -o $HOME/squashfs-root/AppRun
 chmod a+x ./squashfs-root/runtime
