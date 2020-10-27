@@ -16,7 +16,7 @@ curl -s https://raw.githubusercontent.com/pineappleEA/pineappleEA.github.io/mast
 #AnonF
 latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | cut -d '=' -f 2 | cut -d '>' -f 1 | head -n 1)
 export title="$(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
-aria2c $(curl $latest | grep -o 'https://cdn-.*.7z' | head -n 1)
+aria2c $(curl $latest | grep -o 'https://cdn1-.*.7z' | head -n 1)
 if [ ! -f YuzuEA-$title.7z ]; then
     	#GDrive
 	    latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | head -n 1)
