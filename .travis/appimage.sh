@@ -46,12 +46,12 @@ unset QTDIR
 
 mkdir $HOME/artifacts/
 mkdir -p /yuzu/artifacts/version
-# /tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -appimage -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
-/tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
-export PATH=$(readlink -f /tmp/squashfs-root/usr/bin/):$PATH
 # Version AppImage
 curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o $HOME/squashfs-root/AppRun
 chmod a+x ./squashfs-root/AppRun
+# /tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -appimage -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
+/tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
+export PATH=$(readlink -f /tmp/squashfs-root/usr/bin/):$PATH
 /tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root
 version=$(echo $title | cut -d " " -f 2) 
 mv ./yuzu-x86_64.AppImage /yuzu/artifacts/version/Yuzu-EA-$version.AppImage
