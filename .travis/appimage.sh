@@ -50,7 +50,7 @@ mkdir -p /yuzu/artifacts/version
 /tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
 export PATH=$(readlink -f /tmp/squashfs-root/usr/bin/):$PATH
 # Version AppImage
-cp /tmp/squashfs-root/AppRun $HOME/squashfs-root/AppRun
+curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o $HOME/squashfs-root/AppRun
 chmod a+x ./squashfs-root/AppRun
 /tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root
 version=$(echo $title | cut -d " " -f 2) 
