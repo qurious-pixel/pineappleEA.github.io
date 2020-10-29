@@ -33,9 +33,7 @@ mkdir -p squashfs-root/usr/share/pixmaps && cp ./squashfs-root/yuzu.svg ./squash
 mkdir -p squashfs-root/usr/share/src
 cp /tmp/source/yuzu-windows-msvc-early-access/yuzu-windows-msvc-source-*.tar.xz ./squashfs-root/usr/share/src
 curl -sL "https://raw.githubusercontent.com/$TRAVIS_REPO_SLUG/$BRANCH/.travis/update.sh" -o $HOME/squashfs-root/update.sh
-curl -sL "https://raw.githubusercontent.com/$TRAVIS_REPO_SLUG/$BRANCH/.travis/AppRun" -o $HOME/squashfs-root/AppRun
 chmod a+x ./squashfs-root/runtime
-chmod a+x ./squashfs-root/AppRun
 chmod a+x ./squashfs-root/update.sh
 
 #cp /tmp/libssl.so.47 /tmp/libcrypto.so.45 /usr/lib/x86_64-linux-gnu/
@@ -46,20 +44,30 @@ unset QT_PLUGIN_PATH
 unset LD_LIBRARY_PATH
 unset QTDIR
 
+mkdir $HOME/artifacts/
+mkdir -p /yuzu/artifacts/version
 # /tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -appimage -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
 /tmp/squashfs-root/AppRun $HOME/squashfs-root/usr/bin/yuzu -unsupported-allow-new-glibc -no-copy-copyright-files -no-translations -bundle-non-qt-libs
 export PATH=$(readlink -f /tmp/squashfs-root/usr/bin/):$PATH
+# Version AppImage
+cp /tmp/squashfs-root/AppRun $HOME/squashfs-root/AppRun
+chmod a+x ./squashfs-root/AppRun
+/tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root
+version=$(echo $title | cut -d " " -f 2) 
+mv ./yuzu-x86_64.AppImage /yuzu/artifacts/version/Yuzu-EA-$version.AppImage
+
+# Continuous AppImage
+rm $HOME/squashfs-root/AppRun
+curl -sL "https://raw.githubusercontent.com/$TRAVIS_REPO_SLUG/$BRANCH/.travis/AppRun" -o $HOME/squashfs-root/AppRun
+chmod a+x ./squashfs-root/AppRun
 mv /tmp/update/AppImageUpdate $HOME/squashfs-root/usr/bin/
 mv /tmp/update/* $HOME/squashfs-root/usr/lib/
 /tmp/squashfs-root/usr/bin/appimagetool $HOME/squashfs-root -u "gh-releases-zsync|pineappleEA|pineappleEA.github.io|continuous|yuzu-x86_64.AppImage.zsync"
 
-mkdir $HOME/artifacts/
-mkdir -p /yuzu/artifacts/version
 mv yuzu-x86_64.AppImage* /yuzu/artifacts
-version=$(echo $title | cut -d " " -f 2) 
-cp /yuzu/artifacts/yuzu-x86_64.AppImage /yuzu/artifacts/version/Yuzu-EA-$version.AppImage
+
 cp -R $HOME/artifacts/ /yuzu/
-cp "$BUILDBIN"/yuzu /yuzu/artifacts
+cp "$BUILDBIN"/yuzu /yuzu/artifacts/version/
 chmod -R 777 /yuzu/artifacts
 cd /yuzu/artifacts
 ls -al /yuzu/artifacts/
