@@ -7,6 +7,9 @@ latest=$(cat sourcefile.txt | grep https://anonfiles.com/ | cut -d '=' -f 2 | cu
 export title="Yuzu $(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
 echo $title > $TRAVIS_BUILD_DIR/title.txt
 
+sudo apt-get update
+sudo apt-get install -y glslang-dev
+
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
 export PATH=$QT_BASE_DIR/bin:$PATH
