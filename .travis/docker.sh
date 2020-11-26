@@ -8,7 +8,7 @@ export title="Yuzu $(echo $latest | cut -d '-' -f 2 | cut -d '_' -f 1)"
 echo $title > $TRAVIS_BUILD_DIR/title.txt
 
 sudo apt-get update
-sudo apt-get install -y glslang-dev
+sudo apt-get install -y glslang-dev glslang-tools
 
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
