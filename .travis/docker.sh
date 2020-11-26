@@ -2,6 +2,9 @@
 
 BRANCH=$TRAVIS_BRANCH
 
+sudo apt-get update
+sudo apt-get install -y glslang-dev
+
 QT_BASE_DIR=/opt/qt514
 export QTDIR=$QT_BASE_DIR
 export PATH=$QT_BASE_DIR/bin:$PATH
