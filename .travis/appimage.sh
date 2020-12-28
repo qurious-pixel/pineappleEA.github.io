@@ -3,7 +3,7 @@
 BUILDBIN=/tmp/source/yuzu/build/bin
 BINFILE=yuzu-x86_64.AppImage
 LOG_FILE=$HOME/curl.log
-BRANCH=$TRAVIS_BRANCH
+BRANCH=`echo ${GITHUB_REF##*/}`
 
 # QT 5.14.2
 # source /opt/qt514/bin/qt514-env.sh
@@ -37,7 +37,7 @@ chmod a+x ./squashfs-root/AppRun
 chmod a+x ./squashfs-root/update.sh
 #cp /tmp/libssl.so.47 /tmp/libcrypto.so.45 /usr/lib/x86_64-linux-gnu/
 
-echo $TRAVIS_COMMIT > $HOME/squashfs-root/version.txt
+echo $GITHUB_RUN_ID > $HOME/squashfs-root/version.txt
 
 unset QT_PLUGIN_PATH
 unset LD_LIBRARY_PATH
