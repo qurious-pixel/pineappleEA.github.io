@@ -25,13 +25,13 @@ jobs:
               docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .travis/travis-ci.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache quriouspixel/yuzu:latest /bin/bash /yuzu/.travis/docker.sh
       - name: Run Pineapple-AppImage
         run:  echo "Success!"
-      - name: Upload Dolphin
+      - name: Upload AppImage
         run: |
             ls -al artifacts/
             wget -c https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
             tar xfv ghr_v0.13.0_linux_amd64.tar.gz      
             version=$(ls artifacts/version |grep Yuzu-EA | cut -d "-" -f 3 | cut -d "." -f 1) 
-            ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "GitHub https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" continuous-test artifacts/
+            ghr_v0.13.0_linux_amd64/ghr -recreate -n 'Continous build' -b "GitHub https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" continuous artifacts/
             ghr_v0.13.0_linux_amd64/ghr -recreate -n "Continuous build (EA-$version)" -b "GitHub https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" EA-$version artifacts/version/
     
         env:
