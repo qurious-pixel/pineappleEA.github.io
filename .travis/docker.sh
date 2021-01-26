@@ -30,6 +30,12 @@ find -path ./dist -prune -o -type f -exec sed -i 's/\r$//' {} ';'
 wget https://raw.githubusercontent.com/PineappleEA/Pineapple-Linux/master/{inject-git-info,warning-to-warning}.patch
 patch -p1 < inject-git-info.patch
 patch -p1 < warning-to-warning.patch
+
+find . -name "CMakeLists.txt" -exec sed -i 's/^.*-Werror$/-W/g' {} +
+find . -name "CMakeLists.txt" -exec sed -i 's/^.*-Werror=.*)$/ )/g' {} +
+find . -name "CMakeLists.txt" -exec sed -i 's/^.*-Werror=.*$/ /g' {} +
+find . -name "CMakeLists.txt" -exec sed -i 's/-Werror/-W/g' {} +
+
 mkdir -p build && cd build
 
 curl -sL "https://raw.githubusercontent.com/yuzu-emu/yuzu/master/src/web_service/web_backend.cpp" -o /tmp/source/yuzu/src/web_service/web_backend.cpp
